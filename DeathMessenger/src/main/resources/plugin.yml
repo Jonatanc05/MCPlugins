@@ -1,0 +1,6 @@
+name: DeathMessenger
+version: ${project.version}
+main: me.jonatanc05.deathmessenger.Main
+api-version: 1.13
+authors: [Jonatanc05]
+description: Throws custom death messages, including coordinates of death
