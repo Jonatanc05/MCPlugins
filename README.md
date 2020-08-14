@@ -1,6 +1,8 @@
 # Minecraft Plugins
 Todos os plugins que estou desenvolvendo por diversão para servidores de Minecraft usando Spigot. Se quiser aprender a programar plugins, recomendo [pela IDE IntelliJ](https://www.youtube.com/watch?v=v4zbqtpLaS4&list=PLfu_Bpi_zcDNEKmR82hnbv9UxQ16nUBF7), que facilita muito, mas pode ser feito com [IDEs diversas, como Eclipse](https://www.youtube.com/watch?v=r4W4drYdb4Q).
 
+Qualquer ajuda é bem vinda então fique a vontade pra dar Pull Requests, há variás ideias de plugin [nesse doc](https://docs.google.com/document/d/1ZTrTMG60Frp40IZoICb1P4azm_syNGg3sqlkti-0hNI/edit?usp=sharing) que podem ser implementadas.
+
 ## LifeBond
 Tem o objetivo de compartilhar o dano entre players do mesmo grupo ou "vínculo". Se um jogador do mesmo vínculo que você recebe dano, você recebe o mesmo dano, mas cada um recupera a vida baseado na própria fome.
 
