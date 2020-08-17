@@ -27,8 +27,8 @@ Disponibiliza várias opções de classes para o player assim que começa a joga
 ### Como criar uma classe
 Se você quiser criar uma nova classe para o plugin é bem simples de começar. (O termo 'classe' pode ficar ambíguo então diferenciarei usando 'classe java' para as classes programáveis em java e 'classe jogável' para as classes que o jogador escolhe para jogar)
 
-0. Crie uma classe java que implemente a interface *IClass* no pacote *me.jonata.classes*, sobrescrevendo seus métodos como estão descritos em *IClass.java*
-0. A principal forma de adicionar funcionalidades é através de eventos. Para um método ser reconhecido pelo jogo como um evento ele precisa de quatro coisas:
+1. Crie uma classe java que implemente a interface *IClass* no pacote *me.jonata.classes*, sobrescrevendo seus métodos como estão descritos em *IClass.java*
+2. A principal forma de adicionar funcionalidades é através de eventos. Para um método ser reconhecido pelo jogo como um evento ele precisa de quatro coisas:
   
 	- Ter a notação @EventHandler antes da assinatura do método
 	- Ter como único parâmetro um objeto que herda de [*org.bukkit.event.Event*](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/Event.html) (e. g. PlayerJoinEvent, EntityDamageEvent)
@@ -44,8 +44,8 @@ Se você quiser criar uma nova classe para o plugin é bem simples de começar. 
 				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 			}
 			// Este evento é chamado quando um jogador se conecta ao servidor, ele verifica se o jogador escolheu a classe SpeedRunner e, caso positivo, adiciona a ele velocidade 1 por tempo infinito
-0. Adicionar sua classe jogável ao enum *me.jonata.classes.PlayableClass*
-0. Ir à classe java *Main*, no método *onEnable()* e duplicar a linha `classes.add(new Speedrunners());` inicializando a classe java que você criou ao invés de "Speedrunner"
+3. Adicionar sua classe jogável ao enum *me.jonata.classes.PlayableClass*
+4. Ir à classe java *Main*, no método *onEnable()* e duplicar a linha `classes.add(new Speedrunners());` inicializando a classe java que você criou ao invés de "Speedrunner"
 
 Pronto, sua classe será reconhecida como uma classe jogável no plugin, aparecendo na GUI de escolha de classes e chamando seus eventos.
 
