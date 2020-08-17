@@ -1,0 +1,6 @@
+name: Classes
+version: ${project.version}
+main: me.jonata.classes.Main
+api-version: 1.13
+authors: [Jonatanc05]
+description: Makes classes for playes to choose, each one plays differently
