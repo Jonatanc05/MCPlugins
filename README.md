@@ -6,7 +6,7 @@ Qualquer ajuda é bem vinda então fique a vontade pra dar Pull Requests, há va
 ## Como rodar e testar alterações
 Para compilar os plugins basta rodar o arquivo Main de cada um com a [biblioteca do spigot](https://scalacube.com/store/minecraft/spigot-1.16.2/download) como dependência externa.
 
-Para rodar os plugins você deve ter um servidor, [online](server.pro) ou [local](https://www.youtube.com/watch?v=IVJ0euhwPvw), e adicionar o arquivo jar que compilou na pasta plugins, o servidor carregará o plugin ao iniciar novamente.
+Para rodar os plugins você deve ter um servidor, [online](server.pro) ou [local](https://www.youtube.com/watch?v=d1vzYR0I22g), e adicionar o arquivo jar que compilou na pasta plugins, o servidor carregará o plugin ao iniciar novamente.
 
 ## Plugin LifeBond
 Tem o objetivo de compartilhar o dano entre players do mesmo grupo ou "vínculo". Se um jogador do mesmo vínculo que você recebe dano, você recebe o mesmo dano, mas cada um recupera a vida baseado na própria fome.
