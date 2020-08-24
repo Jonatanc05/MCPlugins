@@ -42,7 +42,7 @@ public class Bond implements Listener {
 		if (!(damaged instanceof Player) || !players.contains(damaged) || e.getCause() == EntityDamageEvent.DamageCause.CUSTOM) {
 			return;
 		}
-		double dmg = e.getFinalDamage();
+		double dmg = e.getDamage();
 		for (Player player : players) {
 			if(player == damaged) continue;
 			player.damage(dmg);

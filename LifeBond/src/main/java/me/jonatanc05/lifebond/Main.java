@@ -33,18 +33,10 @@ public final class Main extends JavaPlugin {
 					return true;
 				}
 			}
-		}
-
-		// Criar vínculo
-		if (label.equalsIgnoreCase("criar")) {
-			if(args.length != 1) {
-				sender.sendMessage(ChatColor.RED + "/criar <nome do vínculo>");
-				return false;
-			}
 			Bond bond = new Bond(args[0], (Player) sender);
 			bonds.add(bond);
 			getServer().getPluginManager().registerEvents(bond, this);
-			sender.sendMessage(ChatColor.GREEN + "Você criou o vínculo '" + args[0] + "'");
+			sender.sendMessage(ChatColor.GREEN + "Você criou o vínculo '" + args[0] + "'.");
 		}
 
 		// Listar vínculos
@@ -63,7 +55,7 @@ public final class Main extends JavaPlugin {
 		if (label.equalsIgnoreCase("meuvinculo")) {
 			for(Bond bond : bonds) {
 				if(bond.contains((Player) sender)) {
-					sender.sendMessage("Você pertence ao vínculo .");
+					sender.sendMessage("Você pertence ao vínculo " + bond.getName() + ".");
 					return true;
 				}
 			}
@@ -76,6 +68,7 @@ public final class Main extends JavaPlugin {
 			for(Bond bond : bonds) {
 				if(bond.contains((Player) sender)) {
 					bond.removePlayer((Player) sender);
+					sender.sendMessage(ChatColor.GREEN + "Você saiu do vínculo " + bond.getName() + ".");
 					return true;
 				}
 			}

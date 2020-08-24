@@ -1,11 +1,13 @@
 package me.jonatanc05.deathmessenger;
 
 import org.bukkit.Location;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathListener implements Listener {
 
+	@EventHandler
 	public void OnPlayerDie(PlayerDeathEvent e) {
 
 		Location pos = e.getEntity().getLocation();

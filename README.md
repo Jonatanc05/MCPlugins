@@ -12,8 +12,7 @@ Para rodar os plugins você deve ter um servidor, [online](server.pro) ou [local
 Tem o objetivo de compartilhar o dano entre players do mesmo grupo ou "vínculo". Se um jogador do mesmo vínculo que você recebe dano, você recebe o mesmo dano, mas cada um recupera a vida baseado na própria fome.
 
 ### Comandos
-  - `/criar <nome>`: Cria um vínculo de nome <nome>
-  - `/entrar <nome>`: Entra no vínculo <nome>
+  - `/entrar <nome>`: Entra no vínculo <nome>, depois de criá-lo, caso não exista
   - `/vinculos`: Exibe vínculos existentes (vínculos são automaticamente deletados quando todos os jogadores saem dele)
   - `/meuvinculo`: Informa vínculo do player
   - `/sair`: Retira o player de seu vínculo atual
