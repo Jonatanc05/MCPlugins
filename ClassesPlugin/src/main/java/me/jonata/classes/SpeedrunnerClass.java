@@ -15,36 +15,40 @@ import java.util.ArrayList;
 
 public class SpeedrunnerClass implements IClass {
 
-	public static final double dmgMultiplier = 1.2;
+	public static final double dmgMultiplier = 1.3;
 	public static final int radius = 5000;
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
+
+		// Removendo casos que não interessam
+		if (e.getItem() == null) return;
 		if (e.getItem().getType() != Material.COMPASS || Main.playersClasses.get(p.getName()) != PlayableClass.SpeedRunner) return;
-		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			World w = p.getWorld();
-			StructureType st = null;
-			switch (w.getEnvironment()) {
-				case NETHER: st = StructureType.NETHER_FORTRESS; break;
-				case NORMAL: st = StructureType.STRONGHOLD; break;
-				case THE_END: st = StructureType.END_CITY; break;
+		if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+		World w = p.getWorld();
+		StructureType st = null;
+		switch (w.getEnvironment()) {
+			case NETHER: st = StructureType.NETHER_FORTRESS; break;
+			case NORMAL: st = StructureType.STRONGHOLD; break;
+			case THE_END: st = StructureType.END_CITY; break;
+		}
+		Location l = w.locateNearestStructure(p.getLocation(), st, radius, false);
+		try {
+			if (w.getEnvironment() != World.Environment.NORMAL) {
+				l.getBlock().setType(Material.LODESTONE);
+				CompassMeta meta = (CompassMeta) e.getItem().getItemMeta();
+				meta.setLodestone(l);
+				meta.setLodestoneTracked(true);
+				e.getItem().setItemMeta(meta);
+				e.setCancelled(true);
+			} else {
+				p.setCompassTarget(l);
 			}
-			Location l = w.locateNearestStructure(p.getLocation(), st, radius, true);
-			try {
-				if (w.getEnvironment() != World.Environment.NORMAL) {
-					CompassMeta meta = (CompassMeta) e.getItem().getItemMeta();
-					meta.setLodestoneTracked(true);
-					meta.setLodestone(l);
-					e.getItem().setItemMeta(meta);
-					e.setCancelled(true);
-				} else {
-					p.setCompassTarget(l);
-				}
-				p.sendMessage(ChatColor.GOLD + "A bússola está apontando para a " + ChatColor.BOLD + st.getName().toUpperCase());
-			} catch(Exception exception) {
-				p.sendMessage(ChatColor.RED + "Você está incrivelmente longe da " + st.getName() + " mais próxima kkkkkkk achei q isso nunca fosse acontecer pq é tipo " + radius + " blocos");
-			}
+			p.sendMessage(ChatColor.GOLD + "A bússola está apontando para a " + ChatColor.BOLD + st.getName().toUpperCase());
+		} catch(Exception exception) {
+			p.sendMessage(ChatColor.RED + "Você está incrivelmente longe da " + st.getName() + " mais próxima kkkkkkk achei q isso nunca fosse acontecer pq é tipo " + radius + " blocos");
 		}
 
 	}
