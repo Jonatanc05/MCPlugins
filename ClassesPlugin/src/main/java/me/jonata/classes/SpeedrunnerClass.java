@@ -96,7 +96,7 @@ public class SpeedrunnerClass implements IClass {
 
 	@Override
 	public void add(Player p) {
-		Main.playersClasses.put(p.getName(), PlayableClass.SpeedRunner);
+		Main.playersClasses.put(p.getName(), getPlayableClass());
 		Util.setupPlayer(p);
 		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 	}

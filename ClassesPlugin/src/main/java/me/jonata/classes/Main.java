@@ -33,6 +33,7 @@ public final class Main extends JavaPlugin {
 
 		classes = new ArrayList<>();
 		classes.add(new SpeedrunnerClass());
+		classes.add(new ArcherClass());
 		PluginManager pm = getServer().getPluginManager();
 		for (IClass classObject : classes) {
 			pm.registerEvents(classObject, this);
