@@ -1,11 +1,11 @@
 package me.jonata.classes;
 
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import me.jonata.classes.farmer.FarmerClass;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
 
@@ -34,6 +34,7 @@ public final class Main extends JavaPlugin {
 		classes = new ArrayList<>();
 		classes.add(new SpeedrunnerClass());
 		classes.add(new ArcherClass());
+		classes.add(new FarmerClass());
 		PluginManager pm = getServer().getPluginManager();
 		for (IClass classObject : classes) {
 			pm.registerEvents(classObject, this);
@@ -47,12 +48,12 @@ public final class Main extends JavaPlugin {
 	}
 
 	@Override
-	public void onDisable(){
+	public void onDisable() {
 		try {
 			FileOutputStream fout = new FileOutputStream(filePath);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(playersClasses);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
