@@ -1,4 +1,4 @@
-package me.jonata.classes;
+package me.jonata.mobacraft;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

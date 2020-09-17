@@ -1,4 +1,4 @@
-package me.jonata.classes;
+package me.jonata.mobacraft;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package me.jonata.classes;
+package me.jonata.mobacraft;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -6,10 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.ArrayList;
 
@@ -24,8 +24,12 @@ public class SpeedrunnerClass implements IClass {
 
 		// Removendo casos que não interessam
 		if (e.getItem() == null) return;
-		if (e.getItem().getType() != Material.COMPASS || Main.playersClasses.get(p.getName()) != PlayableClass.SpeedRunner) return;
-		if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+		if (e.getItem().getType() != Material.COMPASS ||
+				Util.getPlayerClass(p) != PlayableClass.SpeedRunner)
+			return;
+		if (e.getAction() != Action.RIGHT_CLICK_AIR &&
+				e.getAction() != Action.RIGHT_CLICK_BLOCK)
+			return;
 
 		World w = p.getWorld();
 		StructureType st = null;
@@ -55,16 +59,19 @@ public class SpeedrunnerClass implements IClass {
 
 	@EventHandler
 	public void onPlayerTakeDamage(EntityDamageEvent e) {
-		if(!(e.getEntity() instanceof Player) || Main.playersClasses.get(((Player) e.getEntity()).getName()) != PlayableClass.SpeedRunner) return;
+		if(!(e.getEntity() instanceof Player) ||
+				Util.getPlayerClass((Player) e.getEntity()) != PlayableClass.SpeedRunner)
+			return;
 		if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
 			e.setDamage(e.getDamage() * dmgMultiplier);
 	}
 
 	@EventHandler
-	public void onPlayerConnect(PlayerJoinEvent e) {
+	public void onPlayerSpawn(PlayerSpawnLocationEvent e) {
+		System.out.println("Aew");
 		Player p = e.getPlayer();
-		if(Main.playersClasses.get(p.getName()) != PlayableClass.SpeedRunner) return;
-		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
+		if(Util.getPlayerClass(p) == PlayableClass.SpeedRunner)
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 	}
 
 	@Override

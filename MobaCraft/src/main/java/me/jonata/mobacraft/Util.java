@@ -1,4 +1,4 @@
-package me.jonata.classes;
+package me.jonata.mobacraft;
 
 import jdk.internal.jline.internal.Nullable;
 import org.bukkit.GameMode;
@@ -27,6 +27,16 @@ public class Util {
 		p.setGameMode(GameMode.SURVIVAL);
 		p.setHealth(p.getHealthScale());
 		p.setFoodLevel(20);
+	}
+
+	public static PlayableClass getPlayerClass(Player p) {
+		return getPlayerClass(p.getName());
+	}
+
+	public static PlayableClass getPlayerClass(String playerName) {
+		if (Main.playersClasses.containsKey(playerName))
+			return Main.playersClasses.get(playerName);
+		return PlayableClass.Unclassed;
 	}
 
 }
