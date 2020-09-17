@@ -1,5 +1,7 @@
-package me.jonata.mobacraft;
+package me.jonata.mobacraft.classes;
 
+import me.jonata.mobacraft.ItemBuilder;
+import me.jonata.mobacraft.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
@@ -12,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
-public class ArcherClass implements IClass {
+public class ArcherClass extends IClass {
 
 	public static final double bowDmgMultiplier = 1.70;
 	public static final double meleeDmgMultiplier = 0.5;
@@ -25,7 +27,7 @@ public class ArcherClass implements IClass {
 		// Reduzir dano melee
 		if (e.getDamager() instanceof Player) {
 			Player p = (Player) e.getDamager();
-			if (Util.getPlayerClass(p) == PlayableClass.Archer)
+			if (Main.getPlayerClass(p) == ClassID.Archer)
 				e.setDamage(e.getDamage() * meleeDmgMultiplier);
 		}
 
@@ -34,7 +36,7 @@ public class ArcherClass implements IClass {
 			Arrow a = (Arrow) e.getEntity();
 			if (a.getShooter() instanceof Player){
 				Player shooter = (Player) a.getShooter();
-				if (Util.getPlayerClass(shooter) == PlayableClass.Archer) {
+				if (Main.getPlayerClass(shooter) == ClassID.Archer) {
 					e.setDamage(e.getDamage() * bowDmgMultiplier);
 				}
 			}
@@ -49,7 +51,7 @@ public class ArcherClass implements IClass {
 		if (e.getItem() == null) return;
 		ItemStack itens = e.getItem();
 		if (itens.getType() != Material.ARROW ||
-				Util.getPlayerClass(p) != PlayableClass.Archer)
+				Main.getPlayerClass(p) != ClassID.Archer)
 			return;
 		if (e.getAction() != Action.RIGHT_CLICK_AIR &&
 				e.getAction() != Action.RIGHT_CLICK_BLOCK)
@@ -88,15 +90,20 @@ public class ArcherClass implements IClass {
 	}
 
 	@Override
-	public PlayableClass getPlayableClass() {
-		return PlayableClass.Archer;
+	public ClassID getClassID() {
+		return ClassID.Archer;
 	}
 
 	@Override
 	public void add(Player p) {
-		Main.playersClasses.put(p.getName(), getPlayableClass());
-		Util.setupPlayer(p);
-		ItemStack cp = Util.createItemStack(Material.LEATHER_CHESTPLATE, 1,"Couraça do arqueiro", null);
+		super.add(p);
+		Main.playersClasses.put(p.getName(), getClassID());
+		ItemStack cp = ItemBuilder.getItemStack(
+				Material.LEATHER_CHESTPLATE,
+				1,
+				"Couraça do arqueiro",
+				null
+			);
 		p.getEquipment().setChestplate(cp);
 	}
 }

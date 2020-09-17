@@ -1,5 +1,6 @@
 package me.jonata.mobacraft;
 
+import me.jonata.mobacraft.classes.IClass;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -17,8 +18,13 @@ public class ClassSelectionGUI implements Listener {
 
 	public ClassSelectionGUI() {
 		inv = Bukkit.createInventory(null, slotRows * 9, invName);
-		for(IClass c : Main.classes) {
-			ItemStack item = Util.createItemStack(c.getMaterial(), 1, c.getName(), c.getDescription());
+		for (IClass c : Main.classes) {
+			ItemStack item = ItemBuilder.getItemStack(
+					c.getMaterial(),
+					1,
+					c.getName(),
+					c.getDescription()
+				);
 			inv.addItem(item);
 		}
 	}

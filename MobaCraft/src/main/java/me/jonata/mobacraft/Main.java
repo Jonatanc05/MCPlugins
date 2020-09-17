@@ -1,5 +1,7 @@
 package me.jonata.mobacraft;
 
+import me.jonata.mobacraft.classes.*;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,7 +13,7 @@ public final class Main extends JavaPlugin {
 
 	public static final String filePath = "." + File.separatorChar + "world" + File.separatorChar + "players-classes.ser";
 
-	public static HashMap<String, PlayableClass> playersClasses;
+	public static HashMap<String, ClassID> playersClasses;
 	public static ArrayList<IClass> classes;
 	public static Unclassed unclassed;
 	public static ClassSelectionGUI gui;
@@ -25,7 +27,7 @@ public final class Main extends JavaPlugin {
 			} else {
 				FileInputStream fin = new FileInputStream(filePath);
 				ObjectInputStream ois = new ObjectInputStream(fin);
-				playersClasses = (HashMap<String, PlayableClass>) ois.readObject();
+				playersClasses = (HashMap<String, ClassID>) ois.readObject();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,6 +57,16 @@ public final class Main extends JavaPlugin {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static ClassID getPlayerClass(Player p) {
+		return getPlayerClass(p.getName());
+	}
+
+	public static ClassID getPlayerClass(String playerName) {
+		if (Main.playersClasses.containsKey(playerName))
+			return Main.playersClasses.get(playerName);
+		return ClassID.Unclassed;
 	}
 
 }

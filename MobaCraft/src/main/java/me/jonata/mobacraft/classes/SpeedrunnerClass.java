@@ -1,5 +1,6 @@
-package me.jonata.mobacraft;
+package me.jonata.mobacraft.classes;
 
+import me.jonata.mobacraft.Main;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,7 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.ArrayList;
 
-public class SpeedrunnerClass implements IClass {
+public class SpeedrunnerClass extends IClass {
 
 	public static final double dmgMultiplier = 1.3;
 	public static final int radius = 5000;
@@ -25,7 +26,7 @@ public class SpeedrunnerClass implements IClass {
 		// Removendo casos que não interessam
 		if (e.getItem() == null) return;
 		if (e.getItem().getType() != Material.COMPASS ||
-				Util.getPlayerClass(p) != PlayableClass.SpeedRunner)
+				Main.getPlayerClass(p) != ClassID.SpeedRunner)
 			return;
 		if (e.getAction() != Action.RIGHT_CLICK_AIR &&
 				e.getAction() != Action.RIGHT_CLICK_BLOCK)
@@ -60,7 +61,7 @@ public class SpeedrunnerClass implements IClass {
 	@EventHandler
 	public void onPlayerTakeDamage(EntityDamageEvent e) {
 		if(!(e.getEntity() instanceof Player) ||
-				Util.getPlayerClass((Player) e.getEntity()) != PlayableClass.SpeedRunner)
+				Main.getPlayerClass((Player) e.getEntity()) != ClassID.SpeedRunner)
 			return;
 		if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
 			e.setDamage(e.getDamage() * dmgMultiplier);
@@ -68,9 +69,8 @@ public class SpeedrunnerClass implements IClass {
 
 	@EventHandler
 	public void onPlayerSpawn(PlayerSpawnLocationEvent e) {
-		System.out.println("Aew");
 		Player p = e.getPlayer();
-		if(Util.getPlayerClass(p) == PlayableClass.SpeedRunner)
+		if(Main.getPlayerClass(p) == ClassID.SpeedRunner)
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 	}
 
@@ -97,14 +97,14 @@ public class SpeedrunnerClass implements IClass {
 	}
 
 	@Override
-	public PlayableClass getPlayableClass() {
-		return PlayableClass.SpeedRunner;
+	public ClassID getClassID() {
+		return ClassID.SpeedRunner;
 	}
 
 	@Override
 	public void add(Player p) {
-		Main.playersClasses.put(p.getName(), getPlayableClass());
-		Util.setupPlayer(p);
+		super.add(p);
+		Main.playersClasses.put(p.getName(), getClassID());
 		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 	}
 }

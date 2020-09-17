@@ -1,5 +1,7 @@
-package me.jonata.mobacraft;
+package me.jonata.mobacraft.classes;
 
+import me.jonata.mobacraft.ItemBuilder;
+import me.jonata.mobacraft.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,7 +20,7 @@ public class Unclassed implements Listener {
 		Player p = e.getPlayer();
 		if(Main.playersClasses.containsKey(p.getName())) return;
 		p.sendMessage(ChatColor.GREEN + "Bem Vindo! " + ChatColor.WHITE + "Selecione uma classe para começar a jogar");
-		p.getInventory().addItem(Util.createItemStack(Material.BOOK, 1, "Selecionar classe", null));
+		p.getInventory().addItem(ItemBuilder.getItemStack(Material.BOOK, 1, "Selecionar classe", null));
 	}
 
 	@EventHandler

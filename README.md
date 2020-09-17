@@ -20,35 +20,39 @@ Tem o objetivo de compartilhar o dano entre players do mesmo grupo ou "vínculo"
 ## Plugin DeathMessenger
 Plugin extremamente simples idealizado pelo [Nikolas](https://github.com/NikolasTola). Consiste em alterar as mensagens de morte enviadas no chat, enviando a posição em que o jogador morreu.
 
-## Plugin Classes
-Disponibiliza várias opções de classes para o player assim que começa a jogar no servidor. Cada classe tem vantagens e desvantagens para sobreviver e explorar, oferencendo várias formas de jogar o jogo.
+## Plugin MobaCraft
+Pensado tanto para mundos de sobrevivência quanto para batalhas PvP em arena, esse plugin disponibiliza várias opções de classes para o player assim que começa a jogar no servidor. Cada classe tem vantagens e desvantagens para sobreviver e explorar, oferencendo várias formas de jogar o jogo.
 
 ### Como criar uma classe
 Se você quiser criar uma nova classe para o plugin é bem simples de começar. (O termo 'classe' pode ficar ambíguo então diferenciarei usando 'classe java' para as classes programáveis em java e 'classe jogável' para as classes que o jogador escolhe para jogar)
 
-1. Crie uma classe java que implemente a interface *IClass* no pacote *me.jonata.classes*, sobrescrevendo seus métodos como estão descritos em *IClass.java*
+1. Crie uma classe java que implemente a classe abstrata *IClass* no pacote *me.jonata.mobacraft.classes*, sobrescrevendo seus métodos como estão descritos em *IClass.java*
 2. A principal forma de adicionar funcionalidades é através de eventos. Para um método ser reconhecido pelo jogo como um evento ele precisa de quatro coisas:
   
 	- Ter a notação @EventHandler antes da assinatura do método
 	- Ter como único parâmetro um objeto que herda de [*org.bukkit.event.Event*](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/Event.html) (e. g. PlayerJoinEvent, EntityDamageEvent)
-	- Estar em uma classe java que implementa [*org.bukkit.event.Listener*](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/Event.html) (a interface *IClass* **já herda** de Listener, portanto **não é preciso implementar** novamente)
-	- Esta classe *Listener* estar registrada pelo plugin (mostro como no item 4 da lista)
+	- Estar em uma classe java que implementa [*org.bukkit.event.Listener*](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/Event.html) (a classe abstrata *IClass* **já herda** de Listener, portanto **não é preciso implementar** novamente)
+	- Esta classe *Listener* ser registrada pelo plugin (mostro como no item 4 da lista)
+	- OBS: O nome do método do evento é irrelevante
 	
 	- Exemplo:
 		
 			@EventHandler
 			public void onPlayerConnect(PlayerJoinEvent e) {
 				Player p = e.getPlayer();
-				if(Main.playersClasses.get(p.getName()) != PlayableClass.SpeedRunner) return;
+				if(Main.getPlayerClass(p) != ClassID.SpeedRunner) return;
 				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 			}
-			// Este evento é chamado quando um jogador se conecta ao servidor, ele verifica se o jogador escolheu a classe SpeedRunner e, caso positivo, adiciona a ele velocidade 1 por tempo infinito
-3. Adicionar sua classe jogável ao enum *me.jonata.classes.PlayableClass*
-4. Ir à classe java *Main*, no método *onEnable()* e duplicar a linha `classes.add(new Speedrunners());` inicializando a classe java que você criou ao invés de "Speedrunner"
+			// Este evento é chamado quando um jogador se conecta ao servidor, ele verifica se o 
+			// jogador escolheu a classe SpeedRunner e, caso positivo, adiciona a ele velocidade
+			// 1 por tempo infinito
+3. Adicionar sua classe jogável ao enum *me.jonata.mobacraft.classes.ClassID*
+4. Ir à *Main*, no método *onEnable()* e duplicar a linha `classes.add(new Speedrunners());` inicializando a classe java que você criou ao invés de "Speedrunner"
 
 Pronto, sua classe será reconhecida como uma classe jogável no plugin, aparecendo na GUI de escolha de classes e chamando seus eventos.
 
-OBS: lembre-se que seus eventos são chamados para qualquer player, então verifique se o player que acionou o evento pertence à sua classe jogável antes de alterá-lo. Para a maioria dos eventos isso pode ser feito com 
+OBS: lembre-se que seus eventos são chamados para qualquer player, então verifique, como no exemplo, se o player que acionou o evento pertence à sua classe jogável antes de alterá-lo. Para a maioria dos eventos isso pode ser feito com 
 
-			Main.playersClasses.get(p.getName()) != PlayableClass.MinhaClasse
-(*Main.playersClasses* é um Hashmap que contém, para cada nome de jogador, a sua classe)
+			Main.getPlayerClass(player) == ClassID.MinhaClasse
+			// ou
+			Main.getPlayerClass(player.getName()) == ClassID.MinhaClasse
