@@ -104,7 +104,6 @@ public class SpeedrunnerClass extends IClass {
 	@Override
 	public void add(Player p) {
 		super.add(p);
-		Main.playersClasses.put(p.getName(), getClassID());
 		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));
 	}
 }

@@ -97,7 +97,6 @@ public class ArcherClass extends IClass {
 	@Override
 	public void add(Player p) {
 		super.add(p);
-		Main.playersClasses.put(p.getName(), getClassID());
 		ItemStack cp = ItemBuilder.getItemStack(
 				Material.LEATHER_CHESTPLATE,
 				1,

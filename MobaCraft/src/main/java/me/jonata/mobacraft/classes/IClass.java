@@ -1,5 +1,6 @@
 package me.jonata.mobacraft.classes;
 
+import me.jonata.mobacraft.Main;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -37,6 +38,7 @@ public abstract class IClass implements Listener {
 		p.setGameMode(GameMode.SURVIVAL);
 		p.setHealth(p.getHealthScale());
 		p.setFoodLevel(20);
+		Main.playersClasses.put(p.getName(), getClassID());
 	}
 
 }
