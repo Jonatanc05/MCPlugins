@@ -1,6 +1,6 @@
-name: Classes
+name: MobaCraft
 version: ${project.version}
-main: me.jonata.classes.Main
+main: me.jonata.mobacraft.Main
 api-version: 1.13
 authors: [Jonatanc05]
 description: Makes classes for playes to choose, each one plays differently

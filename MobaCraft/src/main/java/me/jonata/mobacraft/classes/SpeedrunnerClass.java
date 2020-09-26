@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -63,12 +65,13 @@ public class SpeedrunnerClass extends IClass {
 		if(!(e.getEntity() instanceof Player) ||
 				Main.getPlayerClass((Player) e.getEntity()) != ClassID.SpeedRunner)
 			return;
-		if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
+		if(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK
+				|| e.getCause() == EntityDamageEvent.DamageCause.PROJECTILE)
 			e.setDamage(e.getDamage() * dmgMultiplier);
 	}
 
 	@EventHandler
-	public void onPlayerSpawn(PlayerSpawnLocationEvent e) {
+	public void onPlayerSpawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
 		if(Main.getPlayerClass(p) == ClassID.SpeedRunner)
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0));

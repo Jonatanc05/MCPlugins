@@ -11,7 +11,8 @@ import java.util.HashMap;
 
 public final class Main extends JavaPlugin {
 
-	public static final String filePath = "." + File.separatorChar + "world" + File.separatorChar + "players-classes.ser";
+	public static final String filePath = "." + File.separatorChar + "world" 
+			+ File.separatorChar + "players-classes.ser";
 
 	public static HashMap<String, ClassID> playersClasses;
 	public static ArrayList<IClass> classes;
@@ -36,6 +37,7 @@ public final class Main extends JavaPlugin {
 		classes = new ArrayList<>();
 		classes.add(new SpeedrunnerClass());
 		classes.add(new ArcherClass());
+		classes.add(new AdventurerClass());
 		PluginManager pm = getServer().getPluginManager();
 		for (IClass classObject : classes) {
 			pm.registerEvents(classObject, this);
@@ -50,6 +52,7 @@ public final class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable(){
+		// Escrevendo, caso hajam, novos players no arquivo
 		try {
 			FileOutputStream fout = new FileOutputStream(filePath);
 			ObjectOutputStream oos = new ObjectOutputStream(fout);

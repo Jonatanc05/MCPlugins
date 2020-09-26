@@ -7,7 +7,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -25,13 +27,14 @@ public class AdventurerClass extends IClass {
 	@EventHandler
 	public void onBreakBlock(BlockBreakEvent e) {
 		if (Main.getPlayerClass(e.getPlayer()) == ClassID.Adventurer) {
-			if (r.nextDouble() < loseDropChance)
+			if (e.getBlock().getType() != Material.SHULKER_BOX &&
+					r.nextDouble() < loseDropChance)
 				e.setDropItems(false);
 		}
 	}
 
 	@EventHandler
-	public void onPlayerSpawn(PlayerSpawnLocationEvent e) {
+	public void onPlayerSpawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
 		if (Main.getPlayerClass(p) == ClassID.Adventurer)
 			p.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, Integer.MAX_VALUE, 0));
@@ -61,12 +64,13 @@ public class AdventurerClass extends IClass {
 
 	@Override
 	public ArrayList<String> getDescription() {
-		ArrayList<String> desc = new ArrayList<String>();
+		ArrayList<String> desc = new ArrayList<>();
 		desc.add(ChatColor.GREEN + "-> Nasce com uma shulker box");
 		desc.add(ChatColor.GREEN + "-> Tem efeito de Sorte constante");
-		desc.add(ChatColor.GREEN + "-> Itens consumíveis recuperam " + String.format(".1f", ((double)bonusHunger)/2f) + " pernis de fome");
-		desc.add(ChatColor.RED   + "-> Ao quebrar um bloco, há " + String.format("%.2f", loseDropChance*100) + "% de chance de os");
-		desc.add(ChatColor.RED   + "itens correspondentes não droparem");
+		desc.add(ChatColor.GREEN + "-> Itens consumíveis recuperam +" + String.format("%.1f", ((double)bonusHunger)/2f) + " pernis");
+		desc.add(ChatColor.GREEN + "de fome");
+		desc.add(ChatColor.RED   + "-> Ao quebrar um bloco, há " + String.format("%.2f", loseDropChance*100) + "% de chance de");
+		desc.add(ChatColor.RED   + "seus itens não droparem, exceto shulker boxes");
 		return desc;
 	}
 
@@ -80,7 +84,7 @@ public class AdventurerClass extends IClass {
 				null
 			);
 		p.getInventory().addItem(backpack);
-		p.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, Integer.MAX_VALUE, 0);
+		p.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, Integer.MAX_VALUE, 0));
 	}
 
 }
