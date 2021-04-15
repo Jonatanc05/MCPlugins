@@ -21,7 +21,7 @@ import java.util.Random;
 public class AdventurerClass extends IClass {
 
 	private static Random r = new Random();
-	private static double loseDropChance = 0.20;
+	private static double loseDropChance = 0.10;
 	private static int bonusHunger = 2;
 
 	@EventHandler
